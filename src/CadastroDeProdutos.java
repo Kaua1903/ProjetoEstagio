@@ -19,7 +19,7 @@ public class CadastroDeProdutos {
     static void listarProdutos(Produto[] produtos, int totalProdutos){
         System.out.println("==== Lista de Produtos ====");
                 for (int i = 0; i < totalProdutos; i++) {
-                    System.out.println("Produto: " + produtos[i].nome + " | Quantidade: " + produtos[i].quantidade);
+                    System.out.println("Produto: " + produtos[i].getNome() + " | Quantidade: " + produtos[i].getQuantidade());
                 } if (totalProdutos == 0){
                     System.out.println("Nenhum produto cadastrado.");
                 }
