@@ -4,7 +4,7 @@ public class Produto {
     
     public Produto(String nome, int quantidade) {
         this.nome = nome;
-        this.quantidade = quantidade;
+        setQuantidade(quantidade);
     }
     
     public String getNome() {
@@ -14,8 +14,8 @@ public class Produto {
         return quantidade;
     }
     public void setQuantidade(int quantidade){
-        if (quantidade > 0) {
-            quantidade++;
+        if (quantidade >= 0) {
+        this.quantidade = quantidade;
         }else {
             System.out.println("Número de quantidade inválido");
         }
