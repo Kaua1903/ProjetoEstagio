@@ -20,5 +20,7 @@ public class Produto {
             System.out.println("Número de quantidade inválido");
         }
     }
-
+    public String exibirDetalhes() {
+        return "Produto: " + nome + " | Quantidade: " + quantidade;
+    }
 }

@@ -3,14 +3,35 @@ import java.util.Scanner;
 public class CadastroDeProdutos {   
     static int cadastrarProduto(Produto[] produtos,  int totalProdutos, Scanner sc){
         if (totalProdutos < produtos.length) {
-                    System.out.println("Digite o nome do produto: ");
-                    String produto = sc.nextLine();
-                    System.out.println("Digite a quantidade do produto: ");
-                    int quantidade = sc.nextInt();
-                    sc.nextLine();
+            System.out.println("Tipo de produto: ");
+            System.out.println("1 - Comum: ");
+            System.out.println("2 - Eletrônico: ");
+            System.out.println("3 - Alimentício: ");
+            int tipoProduto = sc.nextInt();
+            sc.nextLine();
+            
+            System.out.println("Digite o nome do produto: ");
+            String nome = sc.nextLine();
+            System.out.println("Digite a quantidade do produto: ");
+            int quantidade = sc.nextInt();
+            sc.nextLine();
 
-                    produtos[totalProdutos] = new Produto(produto, quantidade);
-                    totalProdutos++;
+            if (tipoProduto == 1) {
+                produtos[totalProdutos] = new Produto(nome, quantidade);
+                totalProdutos++;
+            }else if (tipoProduto == 2){
+                System.out.println("Digite os meses de garantia: ");
+                int meses = sc.nextInt();
+                produtos[totalProdutos] = new ProdutoEletronico(nome, quantidade, meses);
+                totalProdutos++;
+            }else if (tipoProduto == 3) {
+                System.out.println("Digite a data de validade: ");
+                String validade = sc.nextLine();
+                produtos[totalProdutos] = new ProdutoAlimenticio(nome, quantidade, validade);
+                totalProdutos++;
+            } else {
+                System.out.println("Número inválido.");
+            }
                 }else {
                     System.out.println("Limite de produtos cadastrados atingido.");
                 }
@@ -19,11 +40,13 @@ public class CadastroDeProdutos {
     static void listarProdutos(Produto[] produtos, int totalProdutos){
         System.out.println("==== Lista de Produtos ====");
                 for (int i = 0; i < totalProdutos; i++) {
-                    System.out.println("Produto: " + produtos[i].getNome() + " | Quantidade: " + produtos[i].getQuantidade());
+                    System.out.println(produtos[i].exibirDetalhes());
                 } if (totalProdutos == 0){
                     System.out.println("Nenhum produto cadastrado.");
                 }
     }
+
+    
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
