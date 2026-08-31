@@ -1,46 +1,61 @@
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
 public class CadastroDeProdutos {   
-    static int cadastrarProduto(Produto[] produtos,  int totalProdutos, Scanner sc){
-        if (totalProdutos < produtos.length) {
+    static void cadastrarProduto(ArrayList<Produto> produtos, Scanner sc){
+        
             System.out.println("Tipo de produto: ");
             System.out.println("1 - Comum: ");
             System.out.println("2 - Eletrônico: ");
             System.out.println("3 - Alimentício: ");
-            int tipoProduto = sc.nextInt();
-            sc.nextLine();
+            int tipoProduto = 0;
+            try{
+                tipoProduto = sc.nextInt();
+                sc.nextLine();
+            }catch(InputMismatchException e){
+                System.out.println("Entrada inválida. Digite um número.");
+                sc.nextLine();
+            }
             
             System.out.println("Digite o nome do produto: ");
             String nome = sc.nextLine();
             System.out.println("Digite a quantidade do produto: ");
-            int quantidade = sc.nextInt();
-            sc.nextLine();
+            int quantidade = 0;
+            try{
+                quantidade = sc.nextInt();
+                sc.nextLine();
+            }catch(InputMismatchException e){
+                System.out.println("Entrada inválida. Digite um número.");
+                sc.nextLine();
+            }
 
             if (tipoProduto == 1) {
-                produtos[totalProdutos] = new Produto(nome, quantidade);
-                totalProdutos++;
+                produtos.add(new Produto(nome, quantidade));
             }else if (tipoProduto == 2){
                 System.out.println("Digite os meses de garantia: ");
-                int meses = sc.nextInt();
-                produtos[totalProdutos] = new ProdutoEletronico(nome, quantidade, meses);
-                totalProdutos++;
+                int meses = 0;
+                try{
+                    meses = sc.nextInt();
+                    sc.nextLine();
+                }catch(InputMismatchException e){
+                    System.out.println("Entrada inválida. Digite um número.");
+                    sc.nextLine();
+                }
+                produtos.add(new ProdutoEletronico(nome, quantidade, meses));
             }else if (tipoProduto == 3) {
                 System.out.println("Digite a data de validade: ");
                 String validade = sc.nextLine();
-                produtos[totalProdutos] = new ProdutoAlimenticio(nome, quantidade, validade);
-                totalProdutos++;
+                produtos.add(new ProdutoAlimenticio(nome, quantidade, validade));
             } else {
                 System.out.println("Número inválido.");
             }
-                }else {
-                    System.out.println("Limite de produtos cadastrados atingido.");
-                }
-                return totalProdutos;
     }
-    static void listarProdutos(Produto[] produtos, int totalProdutos){
+    static void listarProdutos(ArrayList<Produto> produtos, int totalProdutos){
         System.out.println("==== Lista de Produtos ====");
-                for (int i = 0; i < totalProdutos; i++) {
-                    System.out.println(produtos[i].exibirDetalhes());
+                for (int i = 0; i < produtos.size(); i++) {
+                    System.out.println(produtos.get(i).exibirDetalhes());
                 } if (totalProdutos == 0){
                     System.out.println("Nenhum produto cadastrado.");
                 }
@@ -52,8 +67,7 @@ public class CadastroDeProdutos {
         Scanner sc = new Scanner(System.in);
 
         int opcao = 0;
-        int totalProdutos = 0;
-        Produto[] produtos = new Produto[10];
+        ArrayList<Produto> produtos = new ArrayList<>();
 
     
 
@@ -65,18 +79,27 @@ public class CadastroDeProdutos {
             System.out.println("1- Cadastrar produto");
             System.out.println("2- Listar produtos");
             System.out.println("3- Sair");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            try {
+                opcao = sc.nextInt();
+                sc.nextLine();
+            }catch(InputMismatchException e){
+                System.out.println("Entrada inválida. Digite um número.");
+                sc.nextLine();
+                opcao = 0;
+         }
 
             if (opcao == 1) {
-               totalProdutos = cadastrarProduto(produtos, totalProdutos, sc);
+             cadastrarProduto(produtos, sc);
             }
             else if (opcao == 2) {
-                listarProdutos(produtos, totalProdutos);
-            }else {
+                listarProdutos(produtos, produtos.size());
+            }
+            else if (opcao == 3) {
             System.out.println("Saindo do sistema...");
-            } 
-        
+            } else { System.out.println("Opção inválida."); 
+
+            }
+
         }
         sc.close();
     }

@@ -9,6 +9,6 @@ public class ProdutoEletronico extends Produto {
     }
     @Override
     public String exibirDetalhes(){
-        return super.exibirDetalhes() + " | Garantia: " + mesesGarantia + " meses.";
+        return super.exibirDetalhes() + " | Garantia: " + mesesGarantia + " meses";
     }
 }
